@@ -91,13 +91,14 @@ class _ContactSectionState extends State<ContactSection> {
                     ),
                     OutlinedButton.icon(
                       onPressed: () async {
+                        final scaffoldMessenger = ScaffoldMessenger.of(context);
                         await Clipboard.setData(
                           const ClipboardData(text: AppStrings.contactEmail),
                         );
                         if (!mounted) {
                           return;
                         }
-                        ScaffoldMessenger.of(context).showSnackBar(
+                        scaffoldMessenger.showSnackBar(
                           const SnackBar(
                             content: Text(AppStrings.snackEmailCopied),
                           ),
