@@ -9,7 +9,7 @@ class Footer extends StatelessWidget {
   void _openLinkedIn() async {
     final url = Uri.parse(AppStrings.linkedInUrl);
     if (await canLaunchUrl(url)) {
-      await launchUrl(url, mode: LaunchMode.externalNonBrowserApplication);
+      await launchUrl(url, mode: LaunchMode.externalApplication);
     }
   }
 
