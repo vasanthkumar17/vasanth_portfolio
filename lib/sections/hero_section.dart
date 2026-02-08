@@ -13,7 +13,11 @@ class HeroSection extends StatelessWidget {
   Future<void> _launchURL(String urlString) async {
     final Uri url = Uri.parse(urlString);
     if (await canLaunchUrl(url)) {
-      await launchUrl(url, mode: LaunchMode.externalApplication);
+      await launchUrl(
+        url,
+        mode: LaunchMode.externalApplication,
+        webOnlyWindowName: AppStrings.externalTargetBlank,
+      );
     }
   }
 
