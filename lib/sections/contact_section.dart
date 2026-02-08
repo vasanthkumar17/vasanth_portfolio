@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../constants/strings.dart';
 import '../widgets/animated_fade.dart';
 
 class ContactSection extends StatefulWidget {
@@ -27,32 +28,32 @@ class _ContactSectionState extends State<ContactSection> {
 
   String? _validateName(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return 'Please enter your name.';
+      return AppStrings.validationNameRequired;
     }
     if (value.trim().length < 2) {
-      return 'Name must be at least 2 characters.';
+      return AppStrings.validationNameShort;
     }
     return null;
   }
 
   String? _validateEmail(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return 'Please enter your email.';
+      return AppStrings.validationEmailRequired;
     }
     final email = value.trim();
-    final emailRegex = RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$');
+    final emailRegex = RegExp(AppStrings.emailRegexPattern);
     if (!emailRegex.hasMatch(email)) {
-      return 'Please enter a valid email.';
+      return AppStrings.validationEmailInvalid;
     }
     return null;
   }
 
   String? _validateMessage(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return 'Please enter a message.';
+      return AppStrings.validationMessageRequired;
     }
     if (value.trim().length < 10) {
-      return 'Message must be at least 10 characters.';
+      return AppStrings.validationMessageShort;
     }
     return null;
   }
@@ -63,11 +64,12 @@ class _ContactSectionState extends State<ContactSection> {
     final message = _messageController.text.trim();
 
     final mailto = Uri(
-      scheme: 'mailto',
-      path: 'vasanthkumar04398@example.com',
+      scheme: AppStrings.mailtoScheme,
+      path: AppStrings.contactEmail,
       queryParameters: {
-        'subject': 'Portfolio message from $name',
-        'body': 'From: $name <$email>\n\n$message',
+        AppStrings.mailtoSubjectKey: '${AppStrings.emailSubjectPrefix} $name',
+        AppStrings.mailtoBodyKey:
+            '${AppStrings.emailBodyPrefix} $name <$email>\n\n$message',
       },
     );
 
@@ -92,7 +94,7 @@ class _ContactSectionState extends State<ContactSection> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Get In Touch',
+              AppStrings.contactTitle,
               style: Theme.of(context).textTheme.displaySmall,
             ).animate().fadeIn(duration: 500.ms).slideY(begin: 0.2, end: 0.0),
             const SizedBox(height: 16),
@@ -100,7 +102,7 @@ class _ContactSectionState extends State<ContactSection> {
               width: isMobile ? double.infinity : 600,
               child:
                   Text(
-                        'Have a question or want to collaborate? Feel free to reach out!',
+                        AppStrings.contactIntro,
                         style: Theme.of(context).textTheme.bodyLarge,
                       )
                       .animate()
@@ -123,8 +125,8 @@ class _ContactSectionState extends State<ContactSection> {
                               textInputAction: TextInputAction.next,
                               validator: _validateName,
                               decoration: InputDecoration(
-                                labelText: 'Name',
-                                hintText: 'Your name',
+                                labelText: AppStrings.formNameLabel,
+                                hintText: AppStrings.formNameHint,
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8),
                                 ),
@@ -155,8 +157,8 @@ class _ContactSectionState extends State<ContactSection> {
                               textInputAction: TextInputAction.next,
                               validator: _validateEmail,
                               decoration: InputDecoration(
-                                labelText: 'Email',
-                                hintText: 'your@email.com',
+                                labelText: AppStrings.formEmailLabel,
+                                hintText: AppStrings.formEmailHint,
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8),
                                 ),
@@ -187,8 +189,8 @@ class _ContactSectionState extends State<ContactSection> {
                               textInputAction: TextInputAction.newline,
                               validator: _validateMessage,
                               decoration: InputDecoration(
-                                labelText: 'Message',
-                                hintText: 'Your message here...',
+                                labelText: AppStrings.formMessageLabel,
+                                hintText: AppStrings.formMessageHint,
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8),
                                 ),
@@ -216,6 +218,9 @@ class _ContactSectionState extends State<ContactSection> {
                               width: double.infinity,
                               child: ElevatedButton(
                                 onPressed: () async {
+                                  final messenger = ScaffoldMessenger.of(
+                                    context,
+                                  );
                                   if (!_showErrors) {
                                     setState(() => _showErrors = true);
                                   }
@@ -226,21 +231,19 @@ class _ContactSectionState extends State<ContactSection> {
                                       return;
                                     }
                                     if (!launched) {
-                                      ScaffoldMessenger.of(
-                                        context,
-                                      ).showSnackBar(
+                                      messenger.showSnackBar(
                                         const SnackBar(
                                           content: Text(
-                                            'Could not open your email app.',
+                                            AppStrings.snackEmailAppFail,
                                           ),
                                         ),
                                       );
                                       return;
                                     }
-                                    ScaffoldMessenger.of(context).showSnackBar(
+                                    messenger.showSnackBar(
                                       const SnackBar(
                                         content: Text(
-                                          'Message ready to send in your email app.',
+                                          AppStrings.snackEmailReady,
                                         ),
                                       ),
                                     );
@@ -249,7 +252,7 @@ class _ContactSectionState extends State<ContactSection> {
                                     _messageController.clear();
                                   }
                                 },
-                                child: const Text('Send Message'),
+                                child: const Text(AppStrings.sendMessage),
                               ),
                             ),
                           ],

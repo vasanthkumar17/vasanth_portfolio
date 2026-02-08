@@ -1,10 +1,11 @@
-// ignore: avoid_web_libraries_in_flutter
-import 'dart:html' as html;
+import 'package:web/web.dart' as web;
+import '../constants/strings.dart';
 
 Future<void> downloadResume() async {
-  final resumeUrl = Uri.base.resolve('assets/assets/resume.pdf').toString();
-  final anchor = html.AnchorElement(href: resumeUrl)
-    ..download = 'Vasanth_Kumar_Resume.pdf'
-    ..target = '_blank';
+  final resumeUrl = Uri.base.resolve(AppStrings.resumeAssetPath).toString();
+  final anchor = web.document.createElement('a') as web.HTMLAnchorElement;
+  anchor.href = resumeUrl;
+  anchor.download = AppStrings.resumeFileName;
+  anchor.target = AppStrings.externalTargetBlank;
   anchor.click();
 }

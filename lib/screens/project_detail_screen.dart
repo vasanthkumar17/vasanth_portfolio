@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../sections/projects_section.dart';
+import '../constants/strings.dart';
 import '../widgets/navbar.dart';
 import '../widgets/footer.dart';
 
@@ -45,7 +45,7 @@ class ProjectDetailScreen extends StatelessWidget {
                           const Icon(Icons.arrow_back, size: 20),
                           const SizedBox(width: 8),
                           Text(
-                            'Back to Projects',
+                            AppStrings.projectDetailBack,
                             style: Theme.of(context).textTheme.bodyLarge,
                           ),
                         ],
@@ -92,7 +92,7 @@ class ProjectDetailScreen extends StatelessWidget {
 
                     // Overview Section
                     Text(
-                      'Project Overview',
+                      AppStrings.projectDetailOverview,
                       style: Theme.of(context).textTheme.headlineSmall
                           ?.copyWith(fontWeight: FontWeight.bold),
                     ),
@@ -108,7 +108,7 @@ class ProjectDetailScreen extends StatelessWidget {
 
                     // Key Responsibilities Section
                     Text(
-                      'Key Responsibilities',
+                      AppStrings.projectDetailResponsibilities,
                       style: Theme.of(context).textTheme.headlineSmall
                           ?.copyWith(fontWeight: FontWeight.bold),
                     ),
@@ -185,13 +185,13 @@ class ProjectDetailScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Ready to work together?',
+                            AppStrings.projectDetailCtaTitle,
                             style: Theme.of(context).textTheme.titleLarge
                                 ?.copyWith(fontWeight: FontWeight.bold),
                           ),
                           const SizedBox(height: 12),
                           Text(
-                            'Let\'s discuss how I can help bring your project to life.',
+                            AppStrings.projectDetailCtaBody,
                             style: Theme.of(context).textTheme.bodyMedium,
                           ),
                           const SizedBox(height: 28),
@@ -199,7 +199,9 @@ class ProjectDetailScreen extends StatelessWidget {
                             onPressed: () {
                               // Navigate to contact section or show contact form
                             },
-                            child: const Text('Get in Touch'),
+                            child: const Text(
+                              AppStrings.projectDetailCtaButton,
+                            ),
                           ),
                         ],
                       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../utils/resume_download.dart';
+import '../constants/strings.dart';
 
 import '../providers/theme_provider.dart';
 
@@ -50,20 +51,23 @@ class NavBar extends StatelessWidget {
       child: Row(
         children: [
           const Text(
-            "Vasanth.dev",
+            AppStrings.navBrand,
             style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
           ),
           const Spacer(),
 
-          _navItem("Home", onHome),
-          _navItem("Projects", onProjects),
-          _navItem("Skills", onSkills),
-          _navItem("Contact", onContact),
+          _navItem(AppStrings.navHome, onHome),
+          _navItem(AppStrings.navProjects, onProjects),
+          _navItem(AppStrings.navSkills, onSkills),
+          _navItem(AppStrings.navContact, onContact),
 
           const SizedBox(width: 16),
 
           // Resume Button
-          ElevatedButton(onPressed: _launchResume, child: const Text("Resume")),
+          ElevatedButton(
+            onPressed: _launchResume,
+            child: const Text(AppStrings.navResume),
+          ),
 
           const SizedBox(width: 12),
 

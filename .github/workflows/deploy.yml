@@ -27,6 +27,9 @@ jobs:
       - name: Build web
         run: flutter build web --release --base-href /vasanth_portfolio/
 
+      - name: Copy resume to web root
+        run: cp assets/resume.pdf build/web/resume.pdf
+
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v4
         with:

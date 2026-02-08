@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import '../constants/strings.dart';
 import '../widgets/animated_fade.dart';
 
 class HeroSection extends StatelessWidget {
@@ -36,11 +37,11 @@ class HeroSection extends StatelessWidget {
               text: TextSpan(
                 children: [
                   TextSpan(
-                    text: "Hey, I'm Vasanth Kumar K ",
+                    text: AppStrings.heroGreeting,
                     style: Theme.of(context).textTheme.displayLarge,
                   ),
                   TextSpan(
-                    text: '✨',
+                    text: AppStrings.heroSparkle,
                     style: Theme.of(context).textTheme.displayLarge,
                   ),
                 ],
@@ -48,7 +49,7 @@ class HeroSection extends StatelessWidget {
             ).animate().fadeIn(duration: 600.ms).slideY(begin: 0.2, end: 0.0),
             const SizedBox(height: 16),
             Text(
-                  'Mobile App Developer',
+                  AppStrings.heroRole,
                   style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                     fontWeight: FontWeight.w400,
                   ),
@@ -62,7 +63,7 @@ class HeroSection extends StatelessWidget {
               width: isMobile ? double.infinity : 550,
               child:
                   Text(
-                        'Mobile app developer with over 4.8 years of experience in Xamarin Native, iOS, and Android app development. Skilled in push notifications, Bluetooth Low Energy (BLE), Agora RTM, and app store/play store submission processes. Currently expanding expertise by learning Flutter Experienced across all stages of the Software Development Life Cycle (SDLC), from requirements analysis to deployment and documentation. Proven ability to develop apps from scratch through to production release.',
+                        AppStrings.heroSummary,
                         style: Theme.of(context).textTheme.bodyLarge,
                         textAlign: TextAlign.start,
                       )
@@ -76,26 +77,24 @@ class HeroSection extends StatelessWidget {
                   runSpacing: 12,
                   children: [
                     ElevatedButton(
-                      onPressed: () =>
-                          _launchURL('mailto:vasanthkumar04398@example.com'),
-                      child: const Text('Contact Me'),
+                      onPressed: () => _launchURL(
+                        '${AppStrings.mailtoScheme}:${AppStrings.contactEmail}',
+                      ),
+                      child: const Text(AppStrings.buttonContactMe),
                     ),
                     OutlinedButton(
                       onPressed: onViewProjects,
-                      child: const Text('View Projects'),
+                      child: const Text(AppStrings.buttonViewProjects),
                     ),
                     OutlinedButton.icon(
-                      onPressed: () =>
-                          _launchURL('https://github.com/vasanthkumar17'),
+                      onPressed: () => _launchURL(AppStrings.githubUrl),
                       icon: const Icon(Icons.link, size: 18),
-                      label: const Text('GitHub'),
+                      label: const Text(AppStrings.buttonGitHub),
                     ),
                     OutlinedButton.icon(
-                      onPressed: () => _launchURL(
-                        'https://www.linkedin.com/in/vasanth-kumar-4522a61a0',
-                      ),
+                      onPressed: () => _launchURL(AppStrings.linkedInUrl),
                       icon: const Icon(Icons.link, size: 18),
-                      label: const Text('LinkedIn'),
+                      label: const Text(AppStrings.buttonLinkedIn),
                     ),
                   ],
                 )

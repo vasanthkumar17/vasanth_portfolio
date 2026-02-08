@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import '../constants/strings.dart';
 import '../widgets/animated_fade.dart';
 
 class ExperienceSection extends StatelessWidget {
@@ -8,43 +9,7 @@ class ExperienceSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isMobile = MediaQuery.of(context).size.width < 768;
-    final categories = <MapEntry<String, List<String>>>[
-      MapEntry('Frameworks', [
-        'iOS (UIKit, SwiftUI)',
-        'Android',
-        'Xamarin.Native (iOS & Android)',
-        'Flutter',
-      ]),
-      MapEntry('Programming Languages', [
-        'Swift',
-        'Kotlin',
-        'Objective-C',
-        'C#',
-        'Dart',
-      ]),
-      MapEntry('Architectures & Methodologies', [
-        'MVVM',
-        'MVC',
-        'Dependency Injection',
-        'TDD',
-        'AGILE',
-      ]),
-      MapEntry('Databases', ['Realm', 'SQL', 'CoreData', 'Room']),
-      MapEntry('Technologies & Services', [
-        'Firebase',
-        'Google Maps & MapKit',
-        'Bluetooth Low Energy (BLE)',
-        'Agora RTM',
-        'WebSocket',
-        'XMPP',
-        'WebRTC',
-      ]),
-      MapEntry('Development Tools', [
-        'Visual Studio',
-        'Xcode',
-        'Android Studio',
-      ]),
-    ];
+    final categories = AppData.skillCategories;
 
     return AnimatedFade(
       child: Container(
@@ -56,7 +21,7 @@ class ExperienceSection extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Core Competencies',
+              AppStrings.sectionCoreCompetencies,
               style: Theme.of(context).textTheme.displaySmall,
               textAlign: TextAlign.start,
             ).animate().fadeIn(duration: 500.ms).slideY(begin: 0.2, end: 0.0),
@@ -65,7 +30,7 @@ class ExperienceSection extends StatelessWidget {
               width: isMobile ? double.infinity : 600,
               child:
                   Text(
-                        'Comprehensive expertise across modern mobile development platforms, architectures, and tools:',
+                        AppStrings.sectionCoreCompetenciesIntro,
                         style: Theme.of(context).textTheme.bodyLarge,
                         textAlign: TextAlign.start,
                       )
@@ -77,8 +42,8 @@ class ExperienceSection extends StatelessWidget {
             for (int i = 0; i < categories.length; i++) ...[
               _buildToolCategory(
                     context,
-                    categories[i].key,
-                    categories[i].value,
+                    categories[i].title,
+                    categories[i].items,
                   )
                   .animate()
                   .fadeIn(duration: 500.ms, delay: (220 + i * 90).ms)
