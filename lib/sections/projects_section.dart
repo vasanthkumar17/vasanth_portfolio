@@ -53,19 +53,23 @@ class _ProjectsSectionState extends State<ProjectsSection> {
           vertical: isMobile ? 60 : 80,
         ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
               AppStrings.sectionProfessionalExperience,
               style: Theme.of(context).textTheme.displaySmall,
+              textAlign: TextAlign.center,
             ).animate().fadeIn(duration: 500.ms).slideY(begin: 0.2, end: 0.0),
             const SizedBox(height: 10),
-            Container(
-                  width: 56,
-                  height: 3,
-                  decoration: BoxDecoration(
-                    color: accentColor,
-                    borderRadius: BorderRadius.circular(99),
+            Align(
+                  alignment: Alignment.center,
+                  child: Container(
+                    width: 56,
+                    height: 3,
+                    decoration: BoxDecoration(
+                      color: accentColor,
+                      borderRadius: BorderRadius.circular(99),
+                    ),
                   ),
                 )
                 .animate()
@@ -78,6 +82,7 @@ class _ProjectsSectionState extends State<ProjectsSection> {
                   Text(
                         AppStrings.sectionProfessionalExperienceIntro,
                         style: Theme.of(context).textTheme.bodyLarge,
+                        textAlign: TextAlign.center,
                       )
                       .animate()
                       .fadeIn(duration: 500.ms, delay: 120.ms)
@@ -97,9 +102,12 @@ class _ProjectsSectionState extends State<ProjectsSection> {
               ],
             ),
             const SizedBox(height: 24),
-            ElevatedButton(
-              onPressed: () => _launchURL(AppStrings.githubUrl),
-              child: const Text(AppStrings.buttonViewMoreGitHub),
+            Align(
+              alignment: Alignment.center,
+              child: ElevatedButton(
+                onPressed: () => _launchURL(AppStrings.githubUrl),
+                child: const Text(AppStrings.buttonViewMoreGitHub),
+              ),
             ),
           ],
         ),
