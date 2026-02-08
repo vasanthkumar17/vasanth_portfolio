@@ -63,14 +63,17 @@ class _ContactSectionState extends State<ContactSection> {
     final email = _emailController.text.trim();
     final message = _messageController.text.trim();
 
+    final subject = '${AppStrings.emailSubjectPrefix} $name';
+    final body =
+        '${AppStrings.emailBodyPrefix} $name <$email>\n\n$message';
+    final query =
+        '${AppStrings.mailtoSubjectKey}=${Uri.encodeQueryComponent(subject)}'
+        '&${AppStrings.mailtoBodyKey}=${Uri.encodeQueryComponent(body)}';
+
     final mailto = Uri(
       scheme: AppStrings.mailtoScheme,
       path: AppStrings.contactEmail,
-      queryParameters: {
-        AppStrings.mailtoSubjectKey: '${AppStrings.emailSubjectPrefix} $name',
-        AppStrings.mailtoBodyKey:
-            '${AppStrings.emailBodyPrefix} $name <$email>\n\n$message',
-      },
+      query: query,
     );
 
     if (await canLaunchUrl(mailto)) {
@@ -247,6 +250,7 @@ class _ContactSectionState extends State<ContactSection> {
                                         ),
                                       ),
                                     );
+                                    setState(() => _showErrors = false);
                                     _nameController.clear();
                                     _emailController.clear();
                                     _messageController.clear();

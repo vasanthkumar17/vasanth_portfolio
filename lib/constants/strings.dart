@@ -24,6 +24,7 @@ class AppStrings {
   static const navSkills = 'Skills';
   static const navContact = 'Contact';
   static const navResume = 'Resume';
+  static const navToggleTheme = 'Toggle Theme';
 
   static const sectionCoreCompetencies = 'Core Competencies';
   static const sectionCoreCompetenciesIntro =
