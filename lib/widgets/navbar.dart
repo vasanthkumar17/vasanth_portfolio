@@ -38,7 +38,7 @@ class NavBar extends StatelessWidget {
           end: Alignment.bottomRight,
           colors: isDark
               ? const [Color(0xFF0B0B0B), Color(0xFF1F1420), Color(0xFF0F1B2A)]
-              : const [Color(0xFFF8F2F0), Color(0xFFF2D2C4), Color(0xFFD6E6F5)],
+              : const [Color(0xFFFFF4EC), Color(0xFFF8D7C2), Color(0xFFDCEBFF)],
         ),
         boxShadow: [
           BoxShadow(

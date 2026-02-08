@@ -73,9 +73,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           Color(0xFF0F1B2A),
                         ]
                       : const [
-                          Color(0xFFF8F2F0),
-                          Color(0xFFF2D2C4),
-                          Color(0xFFD6E6F5),
+                          Color(0xFFFFF4EC),
+                          Color(0xFFF8D7C2),
+                          Color(0xFFDCEBFF),
                         ],
                 ),
               ),

@@ -80,6 +80,25 @@ class ExperienceSection extends StatelessWidget {
     String category,
     List<String> tools,
   ) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final chipGradient = isDark
+        ? const LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [Color(0xFF2A2A2A), Color(0xFF1C1C1C)],
+          )
+        : const LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [Color(0xFFFFFFFF), Color(0xFFEAEAEA)],
+          );
+    final chipBorder = isDark
+        ? Colors.white.withAlpha(26)
+        : Colors.black.withAlpha(18);
+    final chipShadow = isDark
+        ? Colors.black.withAlpha(80)
+        : Colors.black.withAlpha(35);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -103,10 +122,16 @@ class ExperienceSection extends StatelessWidget {
                     vertical: 6,
                   ),
                   decoration: BoxDecoration(
-                    color: Theme.of(context).brightness == Brightness.dark
-                        ? const Color(0xFF2A2A2A)
-                        : const Color(0xFFE5E5E5),
-                    borderRadius: BorderRadius.circular(6),
+                    gradient: chipGradient,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: chipBorder, width: 1),
+                    boxShadow: [
+                      BoxShadow(
+                        color: chipShadow,
+                        blurRadius: 10,
+                        offset: const Offset(0, 6),
+                      ),
+                    ],
                   ),
                   child: Text(
                     tool,

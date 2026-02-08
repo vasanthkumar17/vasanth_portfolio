@@ -92,19 +92,26 @@ class _HeroContent extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        RichText(
-          textAlign: TextAlign.center,
-          text: TextSpan(
-            children: [
-              TextSpan(
-                text: AppStrings.heroGreeting,
-                style: Theme.of(context).textTheme.displayLarge,
-              ),
-              TextSpan(
-                text: AppStrings.heroSparkle,
-                style: Theme.of(context).textTheme.displayLarge,
-              ),
-            ],
+        FittedBox(
+          fit: BoxFit.scaleDown,
+          alignment: Alignment.center,
+          child: RichText(
+            textAlign: TextAlign.center,
+            maxLines: 1,
+            softWrap: false,
+            overflow: TextOverflow.fade,
+            text: TextSpan(
+              children: [
+                TextSpan(
+                  text: AppStrings.heroGreeting,
+                  style: Theme.of(context).textTheme.displayLarge,
+                ),
+                TextSpan(
+                  text: AppStrings.heroSparkle,
+                  style: Theme.of(context).textTheme.displayLarge,
+                ),
+              ],
+            ),
           ),
         ).animate().fadeIn(duration: 600.ms).slideY(begin: 0.2, end: 0.0),
         const SizedBox(height: 16),
