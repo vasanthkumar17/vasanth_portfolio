@@ -81,11 +81,20 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
+          Positioned.fill(
+            child: IgnorePointer(
+              child: _ParallaxDecorations(
+                controller: _scrollController,
+                isDark: isDark,
+              ),
+            ),
+          ),
           SingleChildScrollView(
             controller: _scrollController,
             child: Padding(
               padding: const EdgeInsets.only(top: navBarHeight),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   HeroSection(
                     key: _heroKey,
@@ -115,6 +124,83 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _ParallaxDecorations extends StatelessWidget {
+  final ScrollController controller;
+  final bool isDark;
+
+  const _ParallaxDecorations({required this.controller, required this.isDark});
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: controller,
+      builder: (context, child) {
+        final offset = controller.hasClients ? controller.offset : 0.0;
+        final topShift = offset * 0.08;
+        final midShift = offset * 0.12;
+        final bottomShift = offset * 0.05;
+
+        return Stack(
+          children: [
+            Positioned(
+              top: -80 + topShift,
+              right: -90,
+              child: _DecorCircle(
+                size: 240,
+                color: isDark
+                    ? const Color(0xFF2B201A).withAlpha(120)
+                    : const Color(0xFFF4D6C7).withAlpha(180),
+              ),
+            ),
+            Positioned(
+              top: 320 + midShift,
+              left: -100,
+              child: _DecorCircle(
+                size: 260,
+                color: isDark
+                    ? const Color(0xFF1E2733).withAlpha(110)
+                    : const Color(0xFFD9E6F5).withAlpha(180),
+              ),
+            ),
+            Positioned(
+              bottom: -120 + bottomShift,
+              right: -60,
+              child: _DecorCircle(
+                size: 220,
+                color: isDark
+                    ? const Color(0xFF1F1A24).withAlpha(110)
+                    : const Color(0xFFEBDDD4).withAlpha(170),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+}
+
+class _DecorCircle extends StatelessWidget {
+  final double size;
+  final Color color;
+
+  const _DecorCircle({required this.size, required this.color});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: size,
+      height: size,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        gradient: RadialGradient(
+          colors: [color, color.withAlpha(0)],
+          stops: const [0.0, 1.0],
+        ),
       ),
     );
   }

@@ -30,6 +30,10 @@ class _ContactSectionState extends State<ContactSection> {
   @override
   Widget build(BuildContext context) {
     final isMobile = MediaQuery.of(context).size.width < 768;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final accentColor = isDark
+        ? Colors.white.withAlpha(140)
+        : const Color(0xFF7A5C50);
 
     return AnimatedFade(
       child: Container(
@@ -44,6 +48,18 @@ class _ContactSectionState extends State<ContactSection> {
               AppStrings.contactTitle,
               style: Theme.of(context).textTheme.displaySmall,
             ).animate().fadeIn(duration: 500.ms).slideY(begin: 0.2, end: 0.0),
+            const SizedBox(height: 10),
+            Container(
+                  width: 56,
+                  height: 3,
+                  decoration: BoxDecoration(
+                    color: accentColor,
+                    borderRadius: BorderRadius.circular(99),
+                  ),
+                )
+                .animate()
+                .fadeIn(duration: 500.ms, delay: 80.ms)
+                .slideX(begin: -0.1, end: 0.0),
             const SizedBox(height: 16),
             SizedBox(
               width: isMobile ? double.infinity : 600,
@@ -56,7 +72,6 @@ class _ContactSectionState extends State<ContactSection> {
                       .fadeIn(duration: 500.ms, delay: 120.ms)
                       .slideY(begin: 0.2, end: 0.0),
             ),
-            const SizedBox(height: 28),
             const SizedBox(height: 28),
             Wrap(
                   spacing: 12,

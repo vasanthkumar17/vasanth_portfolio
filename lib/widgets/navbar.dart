@@ -66,8 +66,8 @@ class NavBar extends StatelessWidget {
             )
           else ...[
             _navItem(AppStrings.navHome, onHome),
-            _navItem(AppStrings.navProjects, onProjects),
             _navItem(AppStrings.navSkills, onSkills),
+            _navItem(AppStrings.navProjects, onProjects),
             _navItem(AppStrings.navContact, onContact),
             const SizedBox(width: 16),
             ElevatedButton(
@@ -131,13 +131,13 @@ class NavBar extends StatelessWidget {
                 ),
                 _mobileNavItem(
                   sheetContext,
-                  label: AppStrings.navProjects,
-                  onTap: onProjects,
+                  label: AppStrings.navSkills,
+                  onTap: onSkills,
                 ),
                 _mobileNavItem(
                   sheetContext,
-                  label: AppStrings.navSkills,
-                  onTap: onSkills,
+                  label: AppStrings.navProjects,
+                  onTap: onProjects,
                 ),
                 _mobileNavItem(
                   sheetContext,

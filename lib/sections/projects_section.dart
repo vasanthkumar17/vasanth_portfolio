@@ -41,6 +41,10 @@ class _ProjectsSectionState extends State<ProjectsSection> {
   Widget build(BuildContext context) {
     final isMobile = MediaQuery.of(context).size.width < 768;
     final crossAxisCount = isMobile ? 1 : 2;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final accentColor = isDark
+        ? Colors.white.withAlpha(140)
+        : const Color(0xFF7A5C50);
 
     return AnimatedFade(
       child: Container(
@@ -55,6 +59,18 @@ class _ProjectsSectionState extends State<ProjectsSection> {
               AppStrings.sectionProfessionalExperience,
               style: Theme.of(context).textTheme.displaySmall,
             ).animate().fadeIn(duration: 500.ms).slideY(begin: 0.2, end: 0.0),
+            const SizedBox(height: 10),
+            Container(
+                  width: 56,
+                  height: 3,
+                  decoration: BoxDecoration(
+                    color: accentColor,
+                    borderRadius: BorderRadius.circular(99),
+                  ),
+                )
+                .animate()
+                .fadeIn(duration: 500.ms, delay: 80.ms)
+                .slideX(begin: -0.1, end: 0.0),
             const SizedBox(height: 16),
             SizedBox(
               width: isMobile ? double.infinity : 600,
@@ -98,61 +114,82 @@ class _ProjectsSectionState extends State<ProjectsSection> {
     bool isMobile,
     int crossAxisCount,
   ) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final cardColor = isDark
+        ? const Color(0xFF151316)
+        : const Color(0xFFF7EFEA);
+    final cardBorder = isDark
+        ? Colors.white.withAlpha(25)
+        : Colors.black.withAlpha(15);
+
     return Padding(
           padding: const EdgeInsets.only(bottom: 32),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _ExperienceHeader(group: group),
-              const SizedBox(height: 20),
-              for (int i = 0; i < group.projects.length; i += crossAxisCount)
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 20),
-                  child: Column(
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            child: _ProjectTitleTile(
-                              project: group.projects[i],
-                              isSelected: selectedProject == group.projects[i],
-                              onTap: () => _toggleProject(group.projects[i]),
+          child: Container(
+            padding: EdgeInsets.symmetric(
+              horizontal: isMobile ? 18 : 24,
+              vertical: isMobile ? 20 : 24,
+            ),
+            decoration: BoxDecoration(
+              color: cardColor,
+              borderRadius: BorderRadius.circular(18),
+              border: Border.all(color: cardBorder),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _ExperienceHeader(group: group),
+                const SizedBox(height: 20),
+                for (int i = 0; i < group.projects.length; i += crossAxisCount)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 20),
+                    child: Column(
+                      children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: _ProjectTitleTile(
+                                project: group.projects[i],
+                                isSelected:
+                                    selectedProject == group.projects[i],
+                                onTap: () => _toggleProject(group.projects[i]),
+                              ),
+                            ),
+                            if (!isMobile) ...[
+                              const SizedBox(width: 20),
+                              if (i + 1 < group.projects.length)
+                                Expanded(
+                                  child: _ProjectTitleTile(
+                                    project: group.projects[i + 1],
+                                    isSelected:
+                                        selectedProject ==
+                                        group.projects[i + 1],
+                                    onTap: () =>
+                                        _toggleProject(group.projects[i + 1]),
+                                  ),
+                                )
+                              else
+                                const Expanded(child: SizedBox.shrink()),
+                            ],
+                          ],
+                        ),
+                        AnimatedSize(
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.easeOutCubic,
+                          alignment: Alignment.topCenter,
+                          child: _RowExpandedPanel(
+                            project: _selectedProjectForRow(
+                              group,
+                              i,
+                              crossAxisCount,
                             ),
                           ),
-                          if (!isMobile) ...[
-                            const SizedBox(width: 20),
-                            if (i + 1 < group.projects.length)
-                              Expanded(
-                                child: _ProjectTitleTile(
-                                  project: group.projects[i + 1],
-                                  isSelected:
-                                      selectedProject == group.projects[i + 1],
-                                  onTap: () =>
-                                      _toggleProject(group.projects[i + 1]),
-                                ),
-                              )
-                            else
-                              const Expanded(child: SizedBox.shrink()),
-                          ],
-                        ],
-                      ),
-                      AnimatedSize(
-                        duration: const Duration(milliseconds: 300),
-                        curve: Curves.easeOutCubic,
-                        alignment: Alignment.topCenter,
-                        child: _RowExpandedPanel(
-                          project: _selectedProjectForRow(
-                            group,
-                            i,
-                            crossAxisCount,
-                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-            ],
+              ],
+            ),
           ),
         )
         .animate()
@@ -225,31 +262,31 @@ class _ProjectTitleTileState extends State<_ProjectTitleTile>
             ),
             decoration: BoxDecoration(
               color: isDark
-                  ? Colors.white.withAlpha(13)
-                  : Colors.white.withAlpha(153),
+                  ? Colors.white.withAlpha(10)
+                  : const Color(0xFFFAF4F0),
               borderRadius: BorderRadius.circular(14),
               border: Border.all(
                 color: _isHovered || widget.isSelected
                     ? (isDark
-                          ? Colors.white.withAlpha(89)
-                          : Colors.black.withAlpha(51))
+                          ? Colors.white.withAlpha(64)
+                          : Colors.black.withAlpha(35))
                     : (isDark
-                          ? Colors.white.withAlpha(38)
-                          : Colors.black.withAlpha(20)),
+                          ? Colors.white.withAlpha(28)
+                          : Colors.black.withAlpha(16)),
                 width: 1.2,
               ),
               boxShadow: _isHovered || widget.isSelected
                   ? [
                       BoxShadow(
                         color: Colors.black.withAlpha(isDark ? 77 : 20),
-                        blurRadius: 18,
+                        blurRadius: 16,
                         offset: const Offset(0, 10),
                       ),
                     ]
                   : [
                       BoxShadow(
                         color: Colors.black.withAlpha(isDark ? 31 : 10),
-                        blurRadius: 10,
+                        blurRadius: 8,
                         offset: const Offset(0, 6),
                       ),
                     ],
@@ -386,19 +423,19 @@ class _RowExpandedPanel extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
             decoration: BoxDecoration(
               color: isDark
-                  ? Colors.white.withAlpha(15)
-                  : Colors.white.withAlpha(179),
+                  ? Colors.white.withAlpha(12)
+                  : const Color(0xFFFBF6F3),
               borderRadius: BorderRadius.circular(16),
               border: Border.all(
                 color: isDark
-                    ? Colors.white.withAlpha(51)
-                    : Colors.black.withAlpha(31),
+                    ? Colors.white.withAlpha(46)
+                    : Colors.black.withAlpha(20),
                 width: 1,
               ),
               boxShadow: [
                 BoxShadow(
                   color: Colors.black.withAlpha(isDark ? 64 : 20),
-                  blurRadius: 22,
+                  blurRadius: 20,
                   offset: const Offset(0, 12),
                 ),
               ],
@@ -419,15 +456,44 @@ class _ExperienceHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final isMobile = MediaQuery.of(context).size.width < 768;
+    final chipBackground = isDark
+        ? Colors.white.withAlpha(18)
+        : const Color(0xFFEBDDD4);
+    final chipTextColor = isDark ? Colors.white70 : const Color(0xFF5A4A42);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          group.role,
-          style: Theme.of(
-            context,
-          ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700),
+        Wrap(
+          spacing: 12,
+          runSpacing: 8,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          children: [
+            Text(
+              group.role,
+              style: Theme.of(
+                context,
+              ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700),
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(
+                horizontal: 12,
+                vertical: isMobile ? 6 : 5,
+              ),
+              decoration: BoxDecoration(
+                color: chipBackground,
+                borderRadius: BorderRadius.circular(999),
+              ),
+              child: Text(
+                group.timeline,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: chipTextColor,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+          ],
         ),
         const SizedBox(height: 6),
         Text(
@@ -435,13 +501,6 @@ class _ExperienceHeader extends StatelessWidget {
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
             color: isDark ? Colors.white70 : Colors.black87,
             fontWeight: FontWeight.w600,
-          ),
-        ),
-        const SizedBox(height: 4),
-        Text(
-          group.timeline,
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-            color: isDark ? Colors.white60 : Colors.black54,
           ),
         ),
       ],
