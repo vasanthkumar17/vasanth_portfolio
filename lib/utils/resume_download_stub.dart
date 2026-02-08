@@ -1,7 +1,7 @@
 import 'package:url_launcher/url_launcher.dart';
 
 Future<void> downloadResume() async {
-  final url = Uri.base.resolve('assets/resume.pdf');
+  final url = Uri.base.resolve('assets/assets/resume.pdf');
   if (await canLaunchUrl(url)) {
     await launchUrl(url, mode: LaunchMode.platformDefault);
   }
