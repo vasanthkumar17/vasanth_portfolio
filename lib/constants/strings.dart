@@ -66,6 +66,7 @@ class AppStrings {
 
   static const snackEmailAppFail = 'Could not open your email app.';
   static const snackEmailReady = 'Message ready to send in your email app.';
+  static const snackEmailCopied = 'Email address copied.';
 
   static const footerCopyright = '\u00A9 2026 Vasanth Kumar K';
   static const footerLinkedIn = 'LinkedIn';
@@ -75,10 +76,13 @@ class AppStrings {
   static const mailtoScheme = 'mailto';
   static const mailtoSubjectKey = 'subject';
   static const mailtoBodyKey = 'body';
+  static const mailtoSimpleLabel = 'Email Me';
+  static const mailtoCopyLabel = 'Copy Email';
 
   static const resumeAssetPath = 'assets/assets/resume.pdf';
   static const resumeFileName = 'Vasanth_Kumar_Resume.pdf';
   static const externalTargetBlank = '_blank';
+  static const externalTargetSelf = '_self';
 }
 
 class SkillCategory {

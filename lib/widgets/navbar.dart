@@ -88,72 +88,84 @@ class NavBar extends StatelessWidget {
   void _openMobileMenu(BuildContext context, ThemeProvider theme) {
     showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
       useSafeArea: true,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       builder: (sheetContext) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  const Text(
-                    AppStrings.navBrand,
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+        return SafeArea(
+          top: false,
+          child: SingleChildScrollView(
+            padding: EdgeInsets.fromLTRB(
+              20,
+              16,
+              20,
+              16 + MediaQuery.of(sheetContext).viewInsets.bottom,
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    const Text(
+                      AppStrings.navBrand,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    const Spacer(),
+                    IconButton(
+                      icon: const Icon(Icons.close),
+                      onPressed: () => Navigator.of(sheetContext).pop(),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                _mobileNavItem(
+                  sheetContext,
+                  label: AppStrings.navHome,
+                  onTap: onHome,
+                ),
+                _mobileNavItem(
+                  sheetContext,
+                  label: AppStrings.navProjects,
+                  onTap: onProjects,
+                ),
+                _mobileNavItem(
+                  sheetContext,
+                  label: AppStrings.navSkills,
+                  onTap: onSkills,
+                ),
+                _mobileNavItem(
+                  sheetContext,
+                  label: AppStrings.navContact,
+                  onTap: onContact,
+                ),
+                const SizedBox(height: 12),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(sheetContext).pop();
+                      _launchResume();
+                    },
+                    child: const Text(AppStrings.navResume),
                   ),
-                  const Spacer(),
-                  IconButton(
-                    icon: const Icon(Icons.close),
-                    onPressed: () => Navigator.of(sheetContext).pop(),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 8),
-              _mobileNavItem(
-                sheetContext,
-                label: AppStrings.navHome,
-                onTap: onHome,
-              ),
-              _mobileNavItem(
-                sheetContext,
-                label: AppStrings.navProjects,
-                onTap: onProjects,
-              ),
-              _mobileNavItem(
-                sheetContext,
-                label: AppStrings.navSkills,
-                onTap: onSkills,
-              ),
-              _mobileNavItem(
-                sheetContext,
-                label: AppStrings.navContact,
-                onTap: onContact,
-              ),
-              const SizedBox(height: 12),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
+                ),
+                const SizedBox(height: 8),
+                TextButton.icon(
                   onPressed: () {
                     Navigator.of(sheetContext).pop();
-                    _launchResume();
+                    theme.toggleTheme();
                   },
-                  child: const Text(AppStrings.navResume),
+                  icon: const Icon(Icons.brightness_6),
+                  label: const Text(AppStrings.navToggleTheme),
                 ),
-              ),
-              const SizedBox(height: 8),
-              TextButton.icon(
-                onPressed: () {
-                  Navigator.of(sheetContext).pop();
-                  theme.toggleTheme();
-                },
-                icon: const Icon(Icons.brightness_6),
-                label: const Text(AppStrings.navToggleTheme),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },

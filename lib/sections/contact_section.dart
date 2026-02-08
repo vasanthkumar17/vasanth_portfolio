@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../constants/strings.dart';
@@ -64,8 +65,7 @@ class _ContactSectionState extends State<ContactSection> {
     final message = _messageController.text.trim();
 
     final subject = '${AppStrings.emailSubjectPrefix} $name';
-    final body =
-        '${AppStrings.emailBodyPrefix} $name <$email>\n\n$message';
+    final body = '${AppStrings.emailBodyPrefix} $name <$email>\n\n$message';
     final query =
         '${AppStrings.mailtoSubjectKey}=${Uri.encodeQueryComponent(subject)}'
         '&${AppStrings.mailtoBodyKey}=${Uri.encodeQueryComponent(body)}';
@@ -77,10 +77,28 @@ class _ContactSectionState extends State<ContactSection> {
     );
 
     if (await canLaunchUrl(mailto)) {
-      return launchUrl(mailto, mode: LaunchMode.externalApplication);
+      return launchUrl(
+        mailto,
+        mode: LaunchMode.platformDefault,
+        webOnlyWindowName: AppStrings.externalTargetSelf,
+      );
     }
 
     return false;
+  }
+
+  Future<void> _launchSimpleMailto() async {
+    final mailto = Uri(
+      scheme: AppStrings.mailtoScheme,
+      path: AppStrings.contactEmail,
+    );
+    if (await canLaunchUrl(mailto)) {
+      await launchUrl(
+        mailto,
+        mode: LaunchMode.platformDefault,
+        webOnlyWindowName: AppStrings.externalTargetSelf,
+      );
+    }
   }
 
   @override
@@ -112,6 +130,36 @@ class _ContactSectionState extends State<ContactSection> {
                       .fadeIn(duration: 500.ms, delay: 120.ms)
                       .slideY(begin: 0.2, end: 0.0),
             ),
+            const SizedBox(height: 28),
+            if (isMobile)
+              Wrap(
+                spacing: 12,
+                runSpacing: 12,
+                children: [
+                  ElevatedButton.icon(
+                    onPressed: _launchSimpleMailto,
+                    icon: const Icon(Icons.mail),
+                    label: const Text(AppStrings.mailtoSimpleLabel),
+                  ),
+                  OutlinedButton.icon(
+                    onPressed: () async {
+                      await Clipboard.setData(
+                        const ClipboardData(text: AppStrings.contactEmail),
+                      );
+                      if (!mounted) {
+                        return;
+                      }
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text(AppStrings.snackEmailCopied),
+                        ),
+                      );
+                    },
+                    icon: const Icon(Icons.copy),
+                    label: const Text(AppStrings.mailtoCopyLabel),
+                  ),
+                ],
+              ).animate().fadeIn(duration: 500.ms, delay: 160.ms),
             const SizedBox(height: 40),
             SizedBox(
               width: isMobile ? double.infinity : 500,

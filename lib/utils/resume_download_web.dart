@@ -6,6 +6,6 @@ Future<void> downloadResume() async {
   final anchor = web.document.createElement('a') as web.HTMLAnchorElement;
   anchor.href = resumeUrl;
   anchor.download = AppStrings.resumeFileName;
-  anchor.target = AppStrings.externalTargetBlank;
+  anchor.target = AppStrings.externalTargetSelf;
   anchor.click();
 }

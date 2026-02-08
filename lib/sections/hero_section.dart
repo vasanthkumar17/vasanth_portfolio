@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../constants/strings.dart';
+import '../utils/resume_download.dart';
 import '../widgets/animated_fade.dart';
 
 class HeroSection extends StatelessWidget {
@@ -18,6 +19,24 @@ class HeroSection extends StatelessWidget {
         webOnlyWindowName: AppStrings.externalTargetBlank,
       );
     }
+  }
+
+  Future<void> _launchMailto() async {
+    final mailto = Uri(
+      scheme: AppStrings.mailtoScheme,
+      path: AppStrings.contactEmail,
+    );
+    if (await canLaunchUrl(mailto)) {
+      await launchUrl(
+        mailto,
+        mode: LaunchMode.platformDefault,
+        webOnlyWindowName: AppStrings.externalTargetSelf,
+      );
+    }
+  }
+
+  Future<void> _launchResume() async {
+    await downloadResume();
   }
 
   @override
@@ -80,10 +99,13 @@ class HeroSection extends StatelessWidget {
                   spacing: 16,
                   runSpacing: 12,
                   children: [
-                    ElevatedButton(
-                      onPressed: () => _launchURL(
-                        '${AppStrings.mailtoScheme}:${AppStrings.contactEmail}',
+                    if (isMobile)
+                      ElevatedButton(
+                        onPressed: _launchResume,
+                        child: const Text(AppStrings.navResume),
                       ),
+                    ElevatedButton(
+                      onPressed: _launchMailto,
                       child: const Text(AppStrings.buttonContactMe),
                     ),
                     OutlinedButton(
