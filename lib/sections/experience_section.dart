@@ -21,55 +21,55 @@ class ExperienceSection extends StatelessWidget {
           horizontal: isMobile ? 24 : 48,
           vertical: isMobile ? 60 : 80,
         ),
-        child: Align(
-          alignment: Alignment.centerLeft,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                AppStrings.sectionCoreCompetencies,
-                style: Theme.of(context).textTheme.displaySmall,
-                textAlign: TextAlign.start,
-              ).animate().fadeIn(duration: 500.ms).slideY(begin: 0.2, end: 0.0),
-              const SizedBox(height: 10),
-              Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              AppStrings.sectionCoreCompetencies,
+              style: Theme.of(context).textTheme.displaySmall,
+              textAlign: TextAlign.center,
+            ).animate().fadeIn(duration: 500.ms).slideY(begin: 0.2, end: 0.0),
+            const SizedBox(height: 10),
+            Align(
+                  alignment: Alignment.center,
+                  child: Container(
                     width: 56,
                     height: 3,
                     decoration: BoxDecoration(
                       color: accentColor,
                       borderRadius: BorderRadius.circular(99),
                     ),
+                  ),
+                )
+                .animate()
+                .fadeIn(duration: 500.ms, delay: 80.ms)
+                .slideX(begin: -0.1, end: 0.0),
+            const SizedBox(height: 16),
+            SizedBox(
+              width: isMobile ? double.infinity : 600,
+              child:
+                  Text(
+                        AppStrings.sectionCoreCompetenciesIntro,
+                        style: Theme.of(context).textTheme.bodyLarge,
+                        textAlign: TextAlign.center,
+                      )
+                      .animate()
+                      .fadeIn(duration: 500.ms, delay: 120.ms)
+                      .slideY(begin: 0.2, end: 0.0),
+            ),
+            const SizedBox(height: 40),
+            for (int i = 0; i < categories.length; i++) ...[
+              _buildToolCategory(
+                    context,
+                    categories[i].title,
+                    categories[i].items,
                   )
                   .animate()
-                  .fadeIn(duration: 500.ms, delay: 80.ms)
-                  .slideX(begin: -0.1, end: 0.0),
-              const SizedBox(height: 16),
-              SizedBox(
-                width: isMobile ? double.infinity : 600,
-                child:
-                    Text(
-                          AppStrings.sectionCoreCompetenciesIntro,
-                          style: Theme.of(context).textTheme.bodyLarge,
-                          textAlign: TextAlign.start,
-                        )
-                        .animate()
-                        .fadeIn(duration: 500.ms, delay: 120.ms)
-                        .slideY(begin: 0.2, end: 0.0),
-              ),
-              const SizedBox(height: 40),
-              for (int i = 0; i < categories.length; i++) ...[
-                _buildToolCategory(
-                      context,
-                      categories[i].title,
-                      categories[i].items,
-                    )
-                    .animate()
-                    .fadeIn(duration: 500.ms, delay: (220 + i * 90).ms)
-                    .slideY(begin: 0.15, end: 0.0),
-                if (i != categories.length - 1) const SizedBox(height: 32),
-              ],
+                  .fadeIn(duration: 500.ms, delay: (220 + i * 90).ms)
+                  .slideY(begin: 0.15, end: 0.0),
+              if (i != categories.length - 1) const SizedBox(height: 32),
             ],
-          ),
+          ],
         ),
       ),
     );
@@ -81,7 +81,7 @@ class ExperienceSection extends StatelessWidget {
     List<String> tools,
   ) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
           category,
@@ -91,8 +91,8 @@ class ExperienceSection extends StatelessWidget {
         ),
         const SizedBox(height: 12),
         Wrap(
-          alignment: WrapAlignment.start,
-          runAlignment: WrapAlignment.start,
+          alignment: WrapAlignment.center,
+          runAlignment: WrapAlignment.center,
           spacing: 12,
           runSpacing: 12,
           children: tools

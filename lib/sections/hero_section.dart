@@ -89,10 +89,11 @@ class _HeroContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         RichText(
+          textAlign: TextAlign.center,
           text: TextSpan(
             children: [
               TextSpan(
@@ -112,18 +113,21 @@ class _HeroContent extends StatelessWidget {
               style: Theme.of(
                 context,
               ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w400),
-              textAlign: TextAlign.start,
+              textAlign: TextAlign.center,
             )
             .animate()
             .fadeIn(duration: 600.ms, delay: 120.ms)
             .slideY(begin: 0.2, end: 0.0),
         const SizedBox(height: 14),
-        Container(
-              width: 56,
-              height: 3,
-              decoration: BoxDecoration(
-                color: accentColor,
-                borderRadius: BorderRadius.circular(99),
+        Align(
+              alignment: Alignment.center,
+              child: Container(
+                width: 56,
+                height: 3,
+                decoration: BoxDecoration(
+                  color: accentColor,
+                  borderRadius: BorderRadius.circular(99),
+                ),
               ),
             )
             .animate()
@@ -138,7 +142,7 @@ class _HeroContent extends StatelessWidget {
                     style: Theme.of(
                       context,
                     ).textTheme.bodyLarge?.copyWith(height: 1.6),
-                    textAlign: TextAlign.start,
+                    textAlign: TextAlign.center,
                   )
                   .animate()
                   .fadeIn(duration: 600.ms, delay: 240.ms)
@@ -146,6 +150,8 @@ class _HeroContent extends StatelessWidget {
         ),
         const SizedBox(height: 40),
         Wrap(
+              alignment: WrapAlignment.center,
+              runAlignment: WrapAlignment.center,
               spacing: 16,
               runSpacing: 12,
               children: [

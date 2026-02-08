@@ -42,19 +42,23 @@ class _ContactSectionState extends State<ContactSection> {
           vertical: isMobile ? 60 : 80,
         ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
               AppStrings.contactTitle,
               style: Theme.of(context).textTheme.displaySmall,
+              textAlign: TextAlign.center,
             ).animate().fadeIn(duration: 500.ms).slideY(begin: 0.2, end: 0.0),
             const SizedBox(height: 10),
-            Container(
-                  width: 56,
-                  height: 3,
-                  decoration: BoxDecoration(
-                    color: accentColor,
-                    borderRadius: BorderRadius.circular(99),
+            Align(
+                  alignment: Alignment.center,
+                  child: Container(
+                    width: 56,
+                    height: 3,
+                    decoration: BoxDecoration(
+                      color: accentColor,
+                      borderRadius: BorderRadius.circular(99),
+                    ),
                   ),
                 )
                 .animate()
@@ -67,6 +71,7 @@ class _ContactSectionState extends State<ContactSection> {
                   Text(
                         AppStrings.contactIntro,
                         style: Theme.of(context).textTheme.bodyLarge,
+                        textAlign: TextAlign.center,
                       )
                       .animate()
                       .fadeIn(duration: 500.ms, delay: 120.ms)
@@ -74,6 +79,8 @@ class _ContactSectionState extends State<ContactSection> {
             ),
             const SizedBox(height: 28),
             Wrap(
+                  alignment: WrapAlignment.center,
+                  runAlignment: WrapAlignment.center,
                   spacing: 12,
                   runSpacing: 12,
                   children: [
