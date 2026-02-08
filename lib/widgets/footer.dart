@@ -7,11 +7,10 @@ class Footer extends StatelessWidget {
   const Footer({super.key});
 
   void _openLinkedIn() async {
-    await launchUrl(
-      Uri.parse(AppStrings.linkedInUrl),
-      mode: LaunchMode.externalApplication,
-      webOnlyWindowName: AppStrings.externalTargetBlank,
-    );
+    final url = Uri.parse(AppStrings.linkedInUrl);
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url, mode: LaunchMode.externalNonBrowserApplication);
+    }
   }
 
   @override

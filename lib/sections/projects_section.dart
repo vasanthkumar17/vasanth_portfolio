@@ -29,11 +29,7 @@ class _ProjectsSectionState extends State<ProjectsSection> {
   Future<void> _launchURL(String urlString) async {
     final Uri url = Uri.parse(urlString);
     if (await canLaunchUrl(url)) {
-      await launchUrl(
-        url,
-        mode: LaunchMode.externalApplication,
-        webOnlyWindowName: AppStrings.externalTargetBlank,
-      );
+      await launchUrl(url, mode: LaunchMode.externalNonBrowserApplication);
     }
   }
 
