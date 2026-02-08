@@ -19,7 +19,14 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: theme.themeMode,
-      home: const HomeScreen(),
+      home: InteractiveViewer(
+        constrained: true,
+        panEnabled: true,
+        scaleEnabled: true,
+        minScale: 1.0,
+        maxScale: 3.0,
+        child: const HomeScreen(),
+      ),
     );
   }
 }

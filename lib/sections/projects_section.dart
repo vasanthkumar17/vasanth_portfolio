@@ -331,7 +331,7 @@ class _ProjectTitleTileState extends State<_ProjectTitleTile>
                   widget.project.technology,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     color: isDark ? Colors.white70 : Colors.black87,
-                    fontWeight: FontWeight.w800,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ],
@@ -497,7 +497,7 @@ class _ExperienceHeader extends StatelessWidget {
                 group.timeline,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   color: chipTextColor,
-                  fontWeight: FontWeight.w900,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),
@@ -508,7 +508,7 @@ class _ExperienceHeader extends StatelessWidget {
           '${group.company}, ${group.location}',
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
             color: isDark ? Colors.white70 : Colors.black87,
-            fontWeight: FontWeight.w700,
+            fontWeight: FontWeight.w600,
           ),
         ),
       ],
