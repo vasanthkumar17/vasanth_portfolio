@@ -19,7 +19,7 @@
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="description" content="A new Flutter project.">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" id="viewport-meta">
 
   <!-- iOS meta tags & icons -->
   <meta name="mobile-web-app-capable" content="yes">
@@ -32,74 +32,45 @@
 
   <title>vasanth_portfolio</title>
   <link rel="manifest" href="manifest.json">
-  <style>
-    body {
-      overscroll-behavior: none;
-      touch-action: pan-x pan-y;
+  <script>
+    // Detect if mobile device
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    if (isMobile) {
+      // Allow zoom on mobile
+      const viewport = document.getElementById('viewport-meta');
+      viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes');
+    } else {
+      // Block ALL zoom on desktop browsers
+      document.addEventListener('wheel', function(e) {
+        if (e.ctrlKey || e.metaKey) {
+          e.preventDefault();
+          e.stopPropagation();
+          return false;
+        }
+      }, { passive: false, capture: true });
+
+      document.addEventListener('gesturestart', function(e) {
+        e.preventDefault();
+      }, { passive: false });
+
+      document.addEventListener('gesturechange', function(e) {
+        e.preventDefault();
+      }, { passive: false });
+
+      document.addEventListener('gestureend', function(e) {
+        e.preventDefault();
+      }, { passive: false });
+
+      document.addEventListener('keydown', function(e) {
+        if ((e.ctrlKey || e.metaKey) && (e.key === '+' || e.key === '-' || e.key === '=' || e.key === '0')) {
+          e.preventDefault();
+        }
+      }, { passive: false });
     }
-  </style>
+  </script>
 </head>
 <body>
-  <script>
-    // Prevent zoom on wheel events (Safari/Chrome trackpad)
-    document.addEventListener('wheel', function(e) {
-      if (e.ctrlKey || e.metaKey) {
-        e.preventDefault();
-        e.stopPropagation();
-        return false;
-      }
-    }, { passive: false, capture: true });
-
-    // Prevent gesture-based zoom (Safari)
-    document.addEventListener('gesturestart', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-    }, { passive: false, capture: true });
-
-    document.addEventListener('gesturechange', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-    }, { passive: false, capture: true });
-
-    document.addEventListener('gestureend', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-    }, { passive: false, capture: true });
-
-    // Prevent touch-based pinch zoom
-    document.addEventListener('touchstart', function(e) {
-      if (e.touches.length > 1) {
-        e.preventDefault();
-        e.stopPropagation();
-      }
-    }, { passive: false, capture: true });
-
-    document.addEventListener('touchmove', function(e) {
-      if (e.touches.length > 1 || e.scale !== 1) {
-        e.preventDefault();
-        e.stopPropagation();
-      }
-    }, { passive: false, capture: true });
-
-    // Prevent double-tap zoom
-    let lastTouchEnd = 0;
-    document.addEventListener('touchend', function(e) {
-      const now = Date.now();
-      if (now - lastTouchEnd <= 300) {
-        e.preventDefault();
-        e.stopPropagation();
-      }
-      lastTouchEnd = now;
-    }, { passive: false, capture: true });
-
-    // Block keyboard zoom shortcuts
-    document.addEventListener('keydown', function(e) {
-      if ((e.ctrlKey || e.metaKey) && (e.key === '+' || e.key === '-' || e.key === '=')) {
-        e.preventDefault();
-        e.stopPropagation();
-      }
-    }, { passive: false, capture: true });
-  </script>
   <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>

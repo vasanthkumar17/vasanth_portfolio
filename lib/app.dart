@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -20,26 +19,7 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: theme.themeMode,
-      scrollBehavior: const MaterialScrollBehavior().copyWith(
-        scrollbars: true,
-        dragDevices: {
-          PointerDeviceKind.touch,
-          PointerDeviceKind.mouse,
-          PointerDeviceKind.trackpad,
-        },
-      ),
-      home: Listener(
-        onPointerSignal: (event) {
-          if (event is PointerScrollEvent) {
-            // Allow normal scrolling but block any scale events
-            if (event.scrollDelta.dy.abs() < 1 && event.scrollDelta.dx.abs() < 1) {
-              // This might be a zoom gesture, ignore it
-              return;
-            }
-          }
-        },
-        child: const HomeScreen(),
-      ),
+      home: const HomeScreen(),
     );
   }
 }
