@@ -32,8 +32,74 @@
 
   <title>vasanth_portfolio</title>
   <link rel="manifest" href="manifest.json">
+  <style>
+    body {
+      overscroll-behavior: none;
+      touch-action: pan-x pan-y;
+    }
+  </style>
 </head>
 <body>
+  <script>
+    // Prevent zoom on wheel events (Safari/Chrome trackpad)
+    document.addEventListener('wheel', function(e) {
+      if (e.ctrlKey || e.metaKey) {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+      }
+    }, { passive: false, capture: true });
+
+    // Prevent gesture-based zoom (Safari)
+    document.addEventListener('gesturestart', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }, { passive: false, capture: true });
+
+    document.addEventListener('gesturechange', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }, { passive: false, capture: true });
+
+    document.addEventListener('gestureend', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }, { passive: false, capture: true });
+
+    // Prevent touch-based pinch zoom
+    document.addEventListener('touchstart', function(e) {
+      if (e.touches.length > 1) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    }, { passive: false, capture: true });
+
+    document.addEventListener('touchmove', function(e) {
+      if (e.touches.length > 1 || e.scale !== 1) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    }, { passive: false, capture: true });
+
+    // Prevent double-tap zoom
+    let lastTouchEnd = 0;
+    document.addEventListener('touchend', function(e) {
+      const now = Date.now();
+      if (now - lastTouchEnd <= 300) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      lastTouchEnd = now;
+    }, { passive: false, capture: true });
+
+    // Block keyboard zoom shortcuts
+    document.addEventListener('keydown', function(e) {
+      if ((e.ctrlKey || e.metaKey) && (e.key === '+' || e.key === '-' || e.key === '=')) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    }, { passive: false, capture: true });
+  </script>
   <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>
